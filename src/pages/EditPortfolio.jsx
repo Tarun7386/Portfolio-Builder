@@ -6,7 +6,7 @@ import {
   Code, X, ChevronRight, ChevronLeft, Save, ArrowLeft, Plus, 
   Sparkles, Calendar, Trash2, Edit3
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+
 
 const EditPortfolio = () => {
   const { id } = useParams();

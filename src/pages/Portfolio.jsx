@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getPortfolio } from "../portfolioService";
-import { motion, AnimatePresence } from "framer-motion";
+import {  AnimatePresence } from "framer-motion";
 import { 
   Mail, Phone, MapPin, Linkedin, Github, 
   Download, Edit, ArrowLeft, ExternalLink,

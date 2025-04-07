@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPortfolio, updatePortfolio, addPortfolio } from "../portfolioService";
+import { getPortfolio } from "../portfolioService";
+import { setDoc, doc } from "firebase/firestore";
+import { auth, db } from "../firebase"; // Ensure you import the auth and db from your firebase config
 import {
   User,
   Briefcase,
@@ -227,20 +229,25 @@ const PortfolioForm = () => {
     }
 
     try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        throw new Error('No authenticated user found');
+      }
+
       const processedData = {
         ...formData,
-         // Assuming you have auth context
+        userId: currentUser.uid,
+        id: currentUser.uid, // Use user's UID as portfolio ID
         skills: formData.skills.split(',').map(skill => skill.trim()).filter(Boolean),
+        createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
       
-      if (id) {
-        await updatePortfolio(id, processedData);
-        navigate(`/portfolio/${id}`);
-      } else {
-        const newId = await addPortfolio(processedData);
-        navigate(`/portfolio/${newId}`);
-      }
+      // Create/update the portfolio document with the user's UID as the document ID
+      await setDoc(doc(db, 'portfolios', currentUser.uid), processedData);
+      
+      // Navigate to the portfolio page using the user's UID
+      navigate(`/portfolio/${currentUser.uid}`);
     } catch (error) {
       console.error('Error saving portfolio:', error);
       setErrors({ submit: error.message });

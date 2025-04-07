@@ -8,14 +8,15 @@ import { getDatabase } from "firebase/database";  // For Realtime Database if ne
 
 // Your web app's Firebase configuration (from the Firebase console)
 const firebaseConfig = {
-  apiKey: "AIzaSyCl7cpvyRSPJipTxJ0NS0Pmr3gHXIEZ558",
-  authDomain: "student-portfolio-636c9.firebaseapp.com",
-  projectId: "student-portfolio-636c9",
-  storageBucket: "student-portfolio-636c9.appspot.com",  // Fix storageBucket URL
-  messagingSenderId: "884239880553",
-  appId: "1:884239880553:web:35e14ca337cadaf82fedf8",
-  measurementId: "G-2P37RS0M2F"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
